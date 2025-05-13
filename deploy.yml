@@ -2,6 +2,8 @@
 - name: "Apache installation using docker"
   hosts: prod
   become: true
+  vars_files:
+    - files/secrets/credentials.yml
   pre_tasks:
     - name: Install EPEL repo
       package: name={{ item }} state=present
@@ -28,6 +30,6 @@
         name: webapp
         image: httpd
         ports:
-          - "81:81"
+          - "80:80"
         volumes: 
-         - /home/admin/index.html:/usr/local/apache2/htdocs/index.html
+        - /home/admin/index.html:/usr/local/apache2/htdocs/index.html
